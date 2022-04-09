@@ -50,4 +50,29 @@ class AuthController extends Controller
 
         return $this->httpSuccess('User is logged out!',$user);
     }
+
+    public function customerLogin(Login $request)
+    {  
+        if (Auth::guard('customer')->attempt($request->validated())) {
+            $user = Auth::guard('customer')
+                        ->user()
+                        ->generateAndSaveApiAuthToken();
+
+            return $this->httpSuccess('Customer is logged in!',$user);
+        }
+
+        return $this->httpUnauthorizedError('Email or password not matched! try again!');
+    }
+
+    public function customerLogout()
+    {
+        $customer = Auth::guard('customer-api')->user();
+
+        if ( $customer ) {
+            $customer->api_token = null;
+            $customer->save();
+        }
+
+        return $this->httpSuccess('User is logged out!',$customer);
+    }
 }

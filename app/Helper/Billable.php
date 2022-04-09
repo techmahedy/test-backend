@@ -21,6 +21,11 @@ trait Billable
         return $this->morphOne(Bill::class, 'billable');
     }
 
+    public function bills()
+    {
+        return $this->morphMany(Bill::class, 'billable');
+    }
+
     public function saveOrUpdateBill($request)
     {   
         return $this->bill()->create($request);

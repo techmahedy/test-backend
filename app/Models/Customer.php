@@ -4,12 +4,13 @@ namespace App\Models;
 
 use App\Helper\Addressable;
 use App\Helper\Billable;
+use App\Helper\Tokenable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Customer extends Model
+class Customer extends Authenticatable
 {
-    use HasFactory, Addressable, Billable;
+    use HasFactory, Addressable, Billable, Tokenable;
     
     protected $fillable = [
         'user_id',
@@ -17,6 +18,8 @@ class Customer extends Model
         'email',
         'password'
     ];
+    
+    protected $guard = 'customer';
 
     public function saveCustomer($request) : self
     {   

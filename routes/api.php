@@ -19,8 +19,11 @@ use App\Http\Controllers\Api\CustomerController;
 Route::controller(AuthController::class)->group(function () {
     Route::post('/register', 'register');
     Route::post('/login', 'login');
+    Route::post('/customer/login', 'customerLogin');
+
     Route::controller(AuthController::class)->group(function () {
         Route::post('/logout', 'logout')->middleware('auth:api');
+        Route::post('/customer/logout', 'customerLogout')->middleware('auth:customer-api');
     });
 });
 
@@ -29,4 +32,8 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::post('update/customer/{customer}', [CustomerController::class, 'update']);
     Route::post('bill/customer/{customer}', [BillController::class, 'bill']);
     Route::get('bill/filter', [BillController::class, 'filter']);
+});
+
+Route::group(['middleware' => ['auth:customer-api']], function () {
+    Route::get('/bills', [CustomerController::class, 'allBills']);
 });

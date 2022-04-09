@@ -20,6 +20,7 @@ return new class extends Migration
                 ->constrained()
                 ->onDelete('cascade')->comment('Created by');
             $table->string('name');
+            $table->string('api_token')->nullable();
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamps();

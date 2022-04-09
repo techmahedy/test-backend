@@ -43,5 +43,11 @@ class CustomerController extends Controller
         DB::commit();
         return $this->httpCreated($customer, "Customer updated successfully");
     }
+
+    public function allBills()
+    {
+        $customer = auth()->guard('customer-api')->user();
+        return $customer->bills;
+    }
     
 }
