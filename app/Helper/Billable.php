@@ -23,15 +23,6 @@ trait Billable
 
     public function saveOrUpdateBill($request)
     {   
-        if($this->hasBill()) {
-            return $this->bill()->update([
-                'bill_month' => $request->address_one,
-                'bill_year' => $request->address_two,
-                'amount' => $request->state,
-                'status' => $request->zip_code
-            ]);
-        }
-
-        return $this->bill()->create($request->all());
+        return $this->bill()->create($request);
     }
 }

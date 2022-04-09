@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BillController;
 use App\Http\Controllers\Api\CustomerController;
 
 /*
@@ -26,4 +27,6 @@ Route::controller(AuthController::class)->group(function () {
 Route::group(['middleware' => ['auth:api']], function () {
     Route::post('create/customer', [CustomerController::class, 'create']);
     Route::post('update/customer/{customer}', [CustomerController::class, 'update']);
+    Route::post('bill/customer/{customer}', [BillController::class, 'bill']);
+    Route::get('bill/filter', [BillController::class, 'filter']);
 });

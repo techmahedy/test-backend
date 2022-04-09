@@ -3,12 +3,13 @@
 namespace App\Models;
 
 use App\Helper\Addressable;
+use App\Helper\Billable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Customer extends Model
 {
-    use HasFactory, Addressable;
+    use HasFactory, Addressable, Billable;
     
     protected $fillable = [
         'user_id',
